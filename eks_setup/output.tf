@@ -12,7 +12,7 @@ output "cluster_endpoint" {
 
 output "cluster_security_group_id" {
   description = "Security group ids attached to the cluster control plane."
-  value       = module.eks.cluster_security_group_id
+  value       = module.eks.eks_managed_node_group_defaults.security_group_id
 }
 
 

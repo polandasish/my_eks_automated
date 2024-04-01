@@ -1,3 +1,4 @@
+/*
 resource "aws_iam_role" "eksrole" {
   name = "eks_role"
 
@@ -54,3 +55,5 @@ resource "aws_iam_instance_profile" "eks_profile" {
   name = "eks_profile"
   role = aws_iam_role.eksrole.name
 }
+
+*/

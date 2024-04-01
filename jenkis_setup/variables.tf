@@ -14,3 +14,6 @@ variable "mypublic-subnet" {
 variable "instance_type" {
   type = string
 }
+variable "rolename" {
+  type = string
+}

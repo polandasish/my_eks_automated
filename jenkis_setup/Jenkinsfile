@@ -1,0 +1,49 @@
+pipeline {
+    agent {
+        label 'slave-1'
+    }
+    tools{
+        jdk "jdk17"
+        maven "maven3"
+    }
+    environment{
+        AWS_ACCESS_KEY_ID= credentials('access_key_id')
+        AWS_SECRET_ACCESS_KEY = credentials('secret_access_key')
+        AWS_DEFAULT_REGION='us-west-1'
+    }
+
+    stages {
+        stage('Git-checkout') {
+            steps {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/polandasish/my_eks_automated.git']])
+            }
+        }
+        stage('Initialize Terraform') {
+            steps {
+                script{
+                    dir('jenkis_setup'){
+                        sh "terraform init"
+                    }
+                }
+            }
+        }
+        stage('Terraform Validate') {
+            steps {
+                script{
+                    dir('jenkis_setup'){
+                        sh "terraform validate"
+                    }
+                }
+            }
+        }
+        stage('Terraform plan') {
+            steps {
+                script{
+                    dir('jenkis_setup'){
+                        sh "terraform plan"
+                    }
+                }
+            }
+        }
+    }
+}

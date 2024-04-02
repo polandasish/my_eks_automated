@@ -27,15 +27,7 @@ pipeline {
                 }
             }
         }
-        stage('Terraform Validate') {
-            steps {
-                script{
-                    dir('jenkis_setup'){
-                        sh "terraform validate"
-                    }
-                }
-            }
-        }
+        
         stage('Terraform plan') {
             steps {
                 script{
